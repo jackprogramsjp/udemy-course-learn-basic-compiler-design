@@ -12,4 +12,4 @@ while True:
         tokens = lexer.get_tokens()
         print(tokens)
     except RuntimeError as e:
-        print("error:", e.args, file=sys.stderr)
+        print("error:", e.args[0], file=sys.stderr)
