@@ -20,6 +20,6 @@ while True:
 
         interpreter = Interpreter()
         value = interpreter.visit(tree)
-        print(value) # or print(value.value)
+        print(value)  # or print(value.value)
     except RuntimeError as e:
         print("error:", e.args[0], file=sys.stderr)

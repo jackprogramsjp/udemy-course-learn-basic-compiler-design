@@ -3,13 +3,14 @@ import tokens
 from nodes import *
 from typing import Optional
 
+
 class Parser:
     def __init__(self, tokens: "list[Token]"):
         self.tokens = tokens
         self.index = 0
         self.current_token: Optional[Token] = None
         self.advance()
-    
+
     def advance(self):
         if self.index < len(self.tokens):
             self.current_token = self.tokens[self.index]
@@ -31,7 +32,10 @@ class Parser:
     def expression(self):
         result = self.term()
 
-        while self.current_token is not None and self.current_token.type in (tokens.TT_PLUS, tokens.TT_MINUS):
+        while self.current_token is not None and self.current_token.type in (
+            tokens.TT_PLUS,
+            tokens.TT_MINUS,
+        ):
             if self.current_token.type == tokens.TT_PLUS:
                 self.advance()
                 result = BinaryNode(tokens.TT_PLUS, result, self.term())
@@ -44,7 +48,11 @@ class Parser:
     def term(self):
         result = self.factor()
 
-        while self.current_token is not None and self.current_token.type in (tokens.TT_MULTIPLY, tokens.TT_DIVIDE, tokens.TT_MODULO):
+        while self.current_token is not None and self.current_token.type in (
+            tokens.TT_MULTIPLY,
+            tokens.TT_DIVIDE,
+            tokens.TT_MODULO,
+        ):
             if self.current_token.type == tokens.TT_MULTIPLY:
                 self.advance()
                 result = BinaryNode(tokens.TT_MULTIPLY, result, self.factor())
@@ -54,7 +62,7 @@ class Parser:
             elif self.current_token.type == tokens.TT_MODULO:
                 self.advance()
                 result = BinaryNode(tokens.TT_MODULO, result, self.factor())
-                
+
         return result
 
     def factor(self):
@@ -66,8 +74,10 @@ class Parser:
             result = self.expression()
 
             if self.current_token.type != tokens.TT_RPAREN:
-                raise RuntimeError("There must be a right parenthesis ')' to end the expression/factor")
-            
+                raise RuntimeError(
+                    "There must be a right parenthesis ')' to end the expression/factor"
+                )
+
             self.advance()
 
             return result

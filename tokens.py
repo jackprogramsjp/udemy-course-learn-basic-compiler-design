@@ -9,31 +9,35 @@ TT_MODULO = "TT_MODULO"
 TT_LPAREN = "TT_LPAREN"
 TT_RPAREN = "TT_RPAREN"
 
+
 def operator_to_character(token_type: str) -> str:
     if token_type == TT_PLUS:
-        return '+'
+        return "+"
     elif token_type == TT_MINUS:
-        return '-'
+        return "-"
     elif token_type == TT_MULTIPLY:
-        return '*'
+        return "*"
     elif token_type == TT_DIVIDE:
-        return '/'
+        return "/"
     elif token_type == TT_MODULO:
-        return '%'
+        return "%"
     elif token_type == TT_LPAREN:
-        return '('
+        return "("
     elif token_type == TT_RPAREN:
-        return ')'
+        return ")"
+
 
 class Token:
     def __init__(self, type: str, value: Optional[float] = None):
         self.type = type
         self.value = value
-    
+
     def __repr__(self) -> str:
-        token_repr = self.type.replace("TT_", "") # This will remove the 'TT_' string part
+        token_repr = self.type.replace(
+            "TT_", ""
+        )  # This will remove the 'TT_' string part
 
         if self.value is not None:
             token_repr += ":" + str(self.value)
-        
+
         return token_repr
